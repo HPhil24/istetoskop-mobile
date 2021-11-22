@@ -3,9 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth } from '../firebase'
 
-const LoginScreen = () => {
+const RegistrationScreen = () => {
+    const [fname, SetFname] = useState('')
+    const [lname, SetLname] = useState('')
     const [email, SetEmail] = useState('')
     const [password, SetPassword] = useState('')
+    const [cpassword, SetCPassword] = useState('')
 
     const navigation = useNavigation()
 
@@ -44,11 +47,23 @@ const LoginScreen = () => {
             style={styles.container}
             behavior="padding"
         >
-            <Image source={{uri: 'https://i.pinimg.com/originals/3a/69/75/3a6975ebb83e52743f4f08ee0713e17b.png'}}
+            <Image source={{uri: 'https://i.pinimg.com/originals/0d/47/5b/0d475b617d01a1be44b71cb894fdcc47.png'}}
        style={{width: 250, height: 200}} />
             <View style={styles.inputContainer}>
                 <TextInput
-                    placeholder="Email"
+                    placeholder="First Name"
+                    value={fname}
+                    onChangeText={text => SetFname(text)}
+                    style={styles.input}
+                />
+                <TextInput
+                    placeholder="LastName"
+                    value={lname}
+                    onChangeText={text => SetLname(text)}
+                    style={styles.input}
+                />
+                <TextInput
+                    placeholder="Email Address"
                     value={email}
                     onChangeText={text => SetEmail(text)}
                     style={styles.input}
@@ -60,10 +75,17 @@ const LoginScreen = () => {
                     style={styles.input}
                     secureTextEntry
                 />
+                <TextInput
+                    placeholder="Confirm Password"
+                    value={cpassword}
+                    onChangeText={text => SetCPassword(text)}
+                    style={styles.input}
+                    secureTextEntry
+                />
             </View>
 
             <View>
-                <Text style={styles.textContainer}>Forgot Password?</Text>
+                <Text style={styles.textContainer}>By clicking Submit, you agreed to our {"\n"} Terms and Conditions</Text>
             </View>
 
             <View style={styles.buttonContainer}>
@@ -71,7 +93,7 @@ const LoginScreen = () => {
                     onPress={handleLogin}
                     style={styles.button}
                 >
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity
                     onPress={handleSignUp}
@@ -82,13 +104,13 @@ const LoginScreen = () => {
 
             </View>
             <View>
-                <Text style={styles.textContainer}>Don't have an account? Sign up.</Text>
+                <Text style={styles.textContainer}>Already have an account? Sign in.</Text>
             </View>
         </KeyboardAvoidingView>
     )
 }
 
-export default LoginScreen
+export default RegistrationScreen
 
 const styles = StyleSheet.create({
     container: {
@@ -98,7 +120,7 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: '80%',
-        paddingBottom: 100
+        paddingBottom: 10
 
     },
     input: {
@@ -109,7 +131,10 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     textContainer: {
-        padding: 20
+        padding: 20,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     buttonContainer: {
         width: '60%',
